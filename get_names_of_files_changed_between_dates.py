@@ -21,7 +21,7 @@ def get_files_between_dates(start_date, end_date):
 
     # Iterate through all open pull requests in the repository
     for commit in commits:
-        # print(f"Checking Commit #{commit.raw_data['sha']} - {commit.author.name} ({commit.author.login})")
+        print(f"Checking Commit #{commit.raw_data['sha']} - {commit.author.name} ({commit.author.login})")
 
         # Get the list of files changed in the pull request
         pull_requests = commit.get_pulls()
@@ -41,5 +41,5 @@ def get_files_between_dates(start_date, end_date):
 if __name__ == '__main__':
     filenames = get_files_between_dates(datetime(2024, 3, 1), datetime(2024, 3, 31))
     print(len(filenames))
-    for filename in filenames:
-        print(filename)
+    with open("updated.txt", "w") as file:
+        file.writelines("\n".join(filenames))
