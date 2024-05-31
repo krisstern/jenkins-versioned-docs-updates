@@ -31,15 +31,23 @@ def get_files_between_dates(start_date, end_date):
 
             # Iterate through each file and print the added lines
             for file in files:
-                if file.filename.startswith("content/"):
+                if file.filename.startswith("content/") and not (file.filename.endswith(".rb") or file.filename.endswith(".html.haml")):
                     print(f"File: {file.filename}")
                     filenames.append(file.filename)
 
     return filenames
 
+def remove_duplicate_filenames(filenames): # array
+      # Convert the list to a set to remove duplicates
+    unique_lines = set(filenames)
+    
+    # Convert the set back to a list to maintain the order
+    return list(unique_lines)
+
 
 if __name__ == '__main__':
     filenames = get_files_between_dates(datetime(2024, 3, 1), datetime(2024, 3, 31))
+    filenames = remove_duplicate_filenames(filenames)
     print(len(filenames))
     with open("updated.txt", "w") as file:
         file.writelines("\n".join(filenames))
