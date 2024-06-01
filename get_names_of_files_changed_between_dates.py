@@ -35,11 +35,15 @@ def get_files_between_dates(start_date, end_date):
                     print(f"File: {file.filename}")
                     filenames.append(file.filename)
 
+        print("\n" + "=" * 50 + "\n")
+
+    filenames = sorted(list(set(filenames)))  # deduplicate and sort filenames
+
     return filenames
 
 
 if __name__ == '__main__':
-    filenames = get_files_between_dates(datetime(2024, 3, 1), datetime(2024, 3, 31))
+    filenames = get_files_between_dates(datetime(2024, 3, 1), datetime(2024, 6, 1))
     print(len(filenames))
     with open("updated.txt", "w") as file:
         file.writelines("\n".join(filenames))
